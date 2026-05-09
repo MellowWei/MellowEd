@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Return Learning · Mellow Jueran Wei</title>
+  <meta name="description" content="Human Return Learning is Mellow Jueran Wei's education contribution portal: qualia, rhythm, music, AI, and human-machine learning systems." />
+
+  <style>
+    :root {
+      --bg: #05080b;
+      --bg2: #07130f;
+      --ink: #eefaf4;
+      --muted: rgba(238, 250, 244, 0.68);
+      --soft: rgba(238, 250, 244, 0.42);
+      --line: rgba(170, 255, 220, 0.18);
+      --green: #77ffc8;
+      --green2: #1ddf9f;
+      --pink: #ff8bd8;
+      --rose: #ffc1e9;
+      --blue: #9fd7ff;
+      --gold: #ffe6a8;
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass2: rgba(255, 255, 255, 0.095);
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 8%, rgba(119, 255, 200, 0.20), transparent 30%),
+        radial-gradient(circle at 82% 14%, rgba(255, 139, 216, 0.17), transparent 32%),
+        radial-gradient(circle at 50% 80%, rgba(159, 215, 255, 0.11), transparent 40%),
+        linear-gradient(135deg, var(--bg), #08110d 44%, #090817);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at 50% 30%, black, transparent 80%);
+      z-index: -3;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 0, rgba(0,0,0,0.22) 72%, rgba(0,0,0,0.58) 100%);
+      z-index: -2;
+    }
+
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      width: 100%;
+      height: 100%;
+      opacity: 0.88;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(var(--max), calc(100% - 28px));
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(5, 9, 10, 0.62);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: fit-content;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 30%, #fff, transparent 23%),
+        radial-gradient(circle at 62% 40%, var(--pink), transparent 32%),
+        radial-gradient(circle at 50% 70%, var(--green), transparent 52%);
+      box-shadow: 0 0 30px rgba(119,255,200,0.35), 0 0 34px rgba(255,139,216,0.24);
+      animation: pulseMark 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseMark {
+      0%, 100% { transform: scale(1); filter: saturate(1); }
+      50% { transform: scale(1.08); filter: saturate(1.45); }
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      line-height: 1.05;
+    }
+
+    .brand-title strong {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-title span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    section {
+      position: relative;
+      padding: 112px 0;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding-top: 130px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green);
+      border: 1px solid rgba(119,255,200,0.22);
+      background: rgba(119,255,200,0.06);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px var(--green);
+    }
+
+    h1 {
+      font-size: clamp(44px, 8vw, 96px);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+      max-width: 920px;
+      margin-bottom: 22px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(110deg, #fff, var(--green) 34%, var(--pink) 72%, var(--blue));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(18px, 2.2vw, 26px);
+      line-height: 1.45;
+      color: rgba(238,250,244,0.82);
+      max-width: 760px;
+      margin-bottom: 26px;
+    }
+
+    .hero-sub strong {
+      color: #fff;
+      font-weight: 650;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-size: 14px;
+      font-weight: 650;
+      transition: 0.26s ease;
+      border: 1px solid var(--line);
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      color: #06100d;
+      background: linear-gradient(135deg, var(--green), var(--pink));
+      box-shadow: 0 16px 48px rgba(119,255,200,0.20);
+      border: none;
+    }
+
+    .btn.secondary {
+      color: var(--ink);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 580px;
+      border: 1px solid var(--line);
+      border-radius: 38px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)),
+        radial-gradient(circle at 30% 10%, rgba(119,255,200,0.22), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(255,139,216,0.18), transparent 38%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .orbital {
+      position: absolute;
+      inset: 45px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      animation: rotateOrb 26s linear infinite;
+    }
+
+    .orbital:nth-child(2) {
+      inset: 86px 38px;
+      animation-duration: 34s;
+      transform: rotate(35deg);
+    }
+
+    .orbital:nth-child(3) {
+      inset: 128px 78px;
+      animation-duration: 22s;
+      transform: rotate(-26deg);
+    }
+
+    @keyframes rotateOrb {
+      from { rotate: 0deg; }
+      to { rotate: 360deg; }
+    }
+
+    .core-sphere {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      left: 50%;
+      top: 47%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 28%, white 0 6%, transparent 18%),
+        radial-gradient(circle at 38% 35%, rgba(255,193,233,0.88), transparent 28%),
+        radial-gradient(circle at 60% 68%, rgba(119,255,200,0.92), transparent 48%),
+        radial-gradient(circle at center, rgba(159,215,255,0.6), rgba(40,255,190,0.15) 48%, transparent 70%);
+      box-shadow:
+        0 0 80px rgba(119,255,200,0.36),
+        0 0 120px rgba(255,139,216,0.22),
+        inset 0 0 40px rgba(255,255,255,0.18);
+      animation: floatCore 6s ease-in-out infinite;
+    }
+
+    @keyframes floatCore {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-16px); }
+    }
+
+    .floating-label {
+      position: absolute;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(5,9,10,0.58);
+      backdrop-filter: blur(14px);
+      color: rgba(255,255,255,0.82);
+      padding: 12px 14px;
+      border-radius: 18px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+      font-size: 13px;
+      max-width: 230px;
+    }
+
+    .floating-label b {
+      display: block;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .label-a { left: 28px; top: 42px; }
+    .label-b { right: 26px; top: 132px; }
+    .label-c { left: 38px; bottom: 112px; }
+    .label-d { right: 34px; bottom: 42px; }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.055);
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 23px;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section-head {
+      margin-bottom: 34px;
+      max-width: 850px;
+    }
+
+    .section-kicker {
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      margin-bottom: 18px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 780px;
+    }
+
+    .glass {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(255,255,255,0.082), rgba(255,255,255,0.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .manifesto {
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .manifesto-quote {
+      font-size: clamp(28px, 4vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+    }
+
+    .manifesto-quote span {
+      color: var(--green);
+    }
+
+    .manifesto-copy {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .manifesto-copy p + p {
+      margin-top: 16px;
+    }
+
+    .bilingual {
+      display: grid;
+      gap: 14px;
+    }
+
+    .zh {
+      color: var(--ink);
+      font-weight: 620;
+    }
+
+    .en {
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.026)),
+        radial-gradient(circle at 20% 0%, rgba(119,255,200,0.08), transparent 34%);
+      border-radius: var(--radius);
+      min-height: 100%;
+      transition: 0.28s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(119,255,200,0.35);
+      box-shadow: 0 22px 70px rgba(0,0,0,0.32);
+    }
+
+    .card-num {
+      display: inline-flex;
+      color: #06100d;
+      background: linear-gradient(135deg, var(--green), var(--pink));
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 10px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      color: rgba(255,255,255,0.78);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+    }
+
+    .theory-map {
+      position: relative;
+      padding: 32px;
+      overflow: hidden;
+    }
+
+    .map-line {
+      position: absolute;
+      left: 52px;
+      top: 92px;
+      bottom: 52px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green), var(--pink), transparent);
+      opacity: 0.7;
+    }
+
+    .map-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 18px;
+      padding: 20px 0;
+    }
+
+    .map-dot {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(5,9,10,0.92);
+      border: 1px solid rgba(119,255,200,0.42);
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      font-weight: 800;
+      box-shadow: 0 0 30px rgba(119,255,200,0.20);
+      z-index: 1;
+    }
+
+    .map-text h3 {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .map-text p {
+      color: var(--muted);
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.8), transparent 22%),
+        linear-gradient(135deg, rgba(119,255,200,0.35), rgba(255,139,216,0.28));
+      box-shadow: 0 0 28px rgba(119,255,200,0.14);
+      flex: 0 0 auto;
+    }
+
+    .project-link {
+      color: var(--green);
+      font-size: 13px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .matrix {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .matrix-row {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr 1.1fr;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .matrix-row:last-child {
+      border-bottom: none;
+    }
+
+    .matrix-cell {
+      padding: 20px;
+      border-right: 1px solid var(--line);
+    }
+
+    .matrix-cell:last-child {
+      border-right: none;
+    }
+
+    .matrix-head {
+      color: #06100d;
+      background: linear-gradient(135deg, rgba(119,255,200,0.95), rgba(255,139,216,0.88));
+      font-weight: 800;
+    }
+
+    .matrix-cell strong {
+      color: #fff;
+    }
+
+    .matrix-cell span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .protocol-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .protocol-block {
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.045);
+    }
+
+    .protocol-block h3 {
+      color: var(--green);
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .protocol-block ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .protocol-block li {
+      color: var(--muted);
+      padding-left: 20px;
+      position: relative;
+      font-size: 15px;
+    }
+
+    .protocol-block li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--pink);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .time-card {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 20px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.045);
+    }
+
+    .time-card strong {
+      color: var(--green);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .time-card h3 {
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .time-card p {
+      color: var(--muted);
+    }
+
+    .contact-box {
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .contact-box h2 {
+      margin-bottom: 14px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-list a,
+    .contact-list div {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      color: var(--muted);
+      transition: 0.25s ease;
+    }
+
+    .contact-list a:hover {
+      color: #fff;
+      border-color: rgba(119,255,200,0.34);
+      transform: translateX(4px);
+    }
+
+    .footer {
+      padding: 44px 0 70px;
+      color: var(--soft);
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .copy-block {
+      position: relative;
+      margin-top: 20px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.26);
+      border-radius: 22px;
+      padding: 22px;
+      color: rgba(238,250,244,0.82);
+    }
+
+    .copy-block button {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.07);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .copy-block pre {
+      white-space: pre-wrap;
+      font-family: inherit;
+      font-size: 14px;
+      padding-right: 76px;
+    }
+
+    @media (max-width: 940px) {
+      .hero-grid,
+      .manifesto,
+      .contact-box,
+      .protocol-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 480px;
+      }
+
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .matrix-row {
+        grid-template-columns: 1fr;
+      }
+
+      .matrix-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .matrix-cell:last-child {
+        border-bottom: none;
+      }
+
+      .time-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        border-radius: 24px;
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        justify-content: flex-start;
+        padding-top: 10px;
+      }
+
+      .nav.open .nav-links {
+        display: flex;
+      }
+
+      section {
+        padding: 86px 0;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .floating-label {
+        font-size: 12px;
+        max-width: 180px;
+      }
+
+      .label-b {
+        right: 16px;
+      }
+
+      .label-c {
+        bottom: 88px;
+      }
+
+      .stats-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .site-shell {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .hero-card {
+        min-height: 420px;
+        border-radius: 28px;
+      }
+
+      .core-sphere {
+        width: 170px;
+        height: 170px;
+      }
+
+      .orbital {
+        inset: 36px;
+      }
+
+      .floating-label {
+        padding: 10px;
+      }
+
+      .label-a { left: 14px; top: 26px; }
+      .label-b { right: 12px; top: 108px; }
+      .label-c { left: 16px; bottom: 88px; }
+      .label-d { right: 14px; bottom: 24px; }
+
+      .card,
+      .manifesto,
+      .theory-map,
+      .contact-box {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
+  <nav class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="Human Return Learning home">
+      <span class="brand-mark"></span>
+      <span class="brand-title">
+        <strong>Human Return Learning</strong>
+        <span>Mellow Jueran Wei · 魏珏然</span>
+      </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" type="button">Menu</button>
+
+    <div class="nav-links">
+      <a href="#theory">Theory</a>
+      <a href="#contributions">Contributions</a>
+      <a href="#projects">Projects</a>
+      <a href="#matrix">Matrix</a>
+      <a href="#research">Research</a>
+      <a href="#collaboration">Collaboration</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="site-shell hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Education · Qualia · Rhythm · AI · Music</div>
+
+          <h1>
+            Human Return <span class="gradient-text">Learning</span>
+          </h1>
+
+          <p class="hero-sub">
+            <strong>Learning is not the compression of the learner into an institution.</strong>
+            Learning is the return of the learner to their own rhythm.
+          </p>
+
+          <p class="hero-sub">
+            学习不是把人压进制度。学习是让人重新返回自己的节律、感知、身体、语言和意义生成能力。
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#contributions">Enter My Education Contributions</a>
+            <a class="btn secondary" href="#projects">View Projects</a>
+          </div>
+
+          <div class="stats-strip">
+            <div class="stat">
+              <strong>01</strong>
+              <span>Qualia-Rhythm Learning Model</span>
+            </div>
+            <div class="stat">
+              <strong>02</strong>
+              <span>Music-Based Learning Interface</span>
+            </div>
+            <div class="stat">
+              <strong>03</strong>
+              <span>AI as Rhythm Mirror</span>
+            </div>
+            <div class="stat">
+              <strong>04</strong>
+              <span>Human-Machine Learning System</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card reveal" aria-label="Animated education system visual">
+          <div class="orbital"></div>
+          <div class="orbital"></div>
+          <div class="orbital"></div>
+          <div class="core-sphere"></div>
+
+          <div class="floating-label label-a">
+            <b>Qualia</b>
+            感质是学习的真实质地。
+          </div>
+          <div class="floating-label label-b">
+            <b>Rhythm</b>
+            节律是学习进入身体的方式。
+          </div>
+          <div class="floating-label label-c">
+            <b>AI Mirror</b>
+            AI 反射状态，降低混乱。
+          </div>
+          <div class="floating-label label-d">
+            <b>Human Return</b>
+            教育让人返回自身。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="manifesto">
+      <div class="site-shell">
+        <div class="manifesto glass reveal">
+          <div class="manifesto-quote">
+            I do not build education as control.
+            <br />
+            I build education as <span>return.</span>
+          </div>
+
+          <div class="manifesto-copy bilingual">
+            <p class="zh">
+              我的教育贡献不是把学习者训练得更服从、更高效、更像制度需要的样子。
+              我的贡献是把学习重新命名为一种返回：返回自己的注意力、身体、音乐、节律、表达和主体性。
+            </p>
+            <p class="en">
+              My contribution to education is not to make learners more compliant, efficient, or institutionally optimized.
+              I redefine learning as a process of return: returning to attention, body, music, rhythm, expression, and subjectivity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="theory">
+      <div class="site-shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">Core Theory</div>
+          <h2>Learning as Rhythm Return</h2>
+          <p class="section-desc">
+            I frame learning not as simple knowledge transfer, but as a rhythm-based process where perception, time, body, language, and environment co-produce the learner’s state.
+          </p>
+        </div>
+
+        <div class="theory-map glass reveal">
+          <div class="map-line"></div>
+
+          <div class="map-item">
+            <div class="map-dot">1</div>
+            <div class="map-text">
+              <h3>Institutional Rhythm / 制度节律</h3>
+              <p>
+                Schools organize learning through deadlines, grading, standardized expression, class schedules, assessment formats, and legitimate language.
+                These structures do not only measure learning; they shape what kinds of learning can appear.
+              </p>
+            </div>
+          </div>
+
+          <div class="map-item">
+            <div class="map-dot">2</div>
+            <div class="map-text">
+              <h3>Lived Learning Rhythm / 生命学习节律</h3>
+              <p>
+                Every learner has a real rhythm made of attention, emotion, body state, memory, sensory density, music, recovery, and motivation.
+                This rhythm is not noise. It is the living condition of learning.
+              </p>
+            </div>
+          </div>
+
+          <div class="map-item">
+            <div class="map-dot">3</div>
+            <div class="map-text">
+              <h3>Rhythm Mismatch / 节律错位</h3>
+              <p>
+                Many learning difficulties are not failures of intelligence or discipline.
+                They are mismatches between institutional rhythm and lived learning rhythm, especially for ADHD learners, high-sensitivity learners, and emotionally overloaded learners.
+              </p>
+            </div>
+          </div>
+
+          <div class="map-item">
+            <div class="map-dot">4</div>
+            <div class="map-text">
+              <h3>Rhythm Return / 节律返回</h3>
+              <p>
+                Education should help learners perceive, name, regulate, and design their own learning rhythms.
+                The goal is not compression. The goal is return.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contributions">
+      <div class="site-shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">My Contributions</div>
+          <h2>What I Contribute to Education</h2>
+          <p class="section-desc">
+            These are the six contribution nodes that turn my educational work into a coherent research, design, and systems-building direction.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card reveal">
+            <span class="card-num">Contribution 01</span>
+            <h3>Qualia-Rhythm Learning Model</h3>
+            <p>
+              I expand learning from cognition alone into a system of qualia, rhythm, body, time, language, music, and environment.
+              Learning becomes the organization of perception and meaning across time.
+            </p>
+            <div class="tag-row">
+              <span class="tag">Qualia</span>
+              <span class="tag">Rhythm</span>
+              <span class="tag">Learning Sciences</span>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Contribution 02</span>
+            <h3>Rhythm Mismatch Diagnostic Framework</h3>
+            <p>
+              I argue that many learning struggles are not individual defects.
+              They are structural misalignments between lived learning rhythm and institutional rhythm.
+            </p>
+            <div class="tag-row">
+              <span class="tag">ADHD</span>
+              <span class="tag">Attention</span>
+              <span class="tag">Institutional Time</span>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Contribution 03</span>
+            <h3>Music as Learning Interface</h3>
+            <p>
+              I use music not as background sound, but as an embodied learning interface that helps learners regulate attention, emotional intensity, and state transition.
+            </p>
+            <div class="tag-row">
+              <span class="tag">Music</span>
+              <span class="tag">Embodiment</span>
+              <span class="tag">State Regulation</span>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Contribution 04</span>
+            <h3>AI as Rhythm Mirror</h3>
+            <p>
+              I frame AI as a rhythm mirror: a system that reflects learner state, down-samples overload, generates language, and converts emotional complexity into actionable learning paths.
+            </p>
+            <div class="tag-row">
+              <span class="tag">Human-Centered AI</span>
+              <span class="tag">Reflection</span>
+              <span class="tag">Learning Support</span>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Contribution 05</span>
+            <h3>Participatory Education & Subject Return</h3>
+            <p>
+              I treat learners as co-designers of their own learning conditions.
+              Education becomes participatory when learners can name, shape, and test the rhythms that actually sustain them.
+            </p>
+            <div class="tag-row">
+              <span class="tag">Participatory Design</span>
+              <span class="tag">Agency</span>
+              <span class="tag">Reflection</span>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Contribution 06</span>
+            <h3>Human-Machine Music Learning System</h3>
+            <p>
+              I connect learning sciences, AI, music, and human-machine interfaces into a system that supports attention, recovery, emotional processing, and self-return.
+            </p>
+            <div class="tag-row">
+              <span class="tag">HMI</span>
+              <span class="tag">BCI-HRP</span>
+              <span class="tag">QDR Engine</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="site-shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">Project Portal</div>
+          <h2>Education Project Matrix</h2>
+          <p class="section-desc">
+            My projects are not separate fragments. They form a connected education system: theory, interface, sound, AI, time anchor, and lab-facing research prototype.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <span class="card-num">Project 01</span>
+                <h3>Human Return Protocol / BCI-HRP</h3>
+              </div>
+              <div class="project-icon">⌁</div>
+            </div>
+            <p>
+              A lab-facing human-machine music interface for helping learners return to their own state through sound, rhythm, AI feedback, and physiological signals.
+            </p>
+            <a class="project-link" href="https://mellowwei.github.io/BCI-HRP/" target="_blank" rel="noopener">Open BCI-HRP →</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <span class="card-num">Project 02</span>
+                <h3>Qualia Rhythm Matrix</h3>
+              </div>
+              <div class="project-icon">✧</div>
+            </div>
+            <p>
+              The theoretical engine for explaining how qualia, rhythm, language, body, and environment generate learning states.
+            </p>
+            <a class="project-link" href="https://mellowwei.github.io/QualiaRhythmMatrix/" target="_blank" rel="noopener">Open Matrix →</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <span class="card-num">Project 03</span>
+                <h3>AiQ愛&lt;7</h3>
+              </div>
+              <div class="project-icon">AI</div>
+            </div>
+            <p>
+              A rhythm-aware answer engine that can become a learning mirror, reflection partner, and state-based feedback interface.
+            </p>
+            <a class="project-link" href="https://mellowwei.github.io/Ai-Q-10/?from=education&enter=aiq-7" target="_blank" rel="noopener">Open AiQ愛&lt;7 →</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <span class="card-num">Project 04</span>
+                <h3>Astro Time Candle</h3>
+              </div>
+              <div class="project-icon">◌</div>
+            </div>
+            <p>
+              A physical time anchor that transforms time from pressure into revelation, helping students feel duration, focus, and inner continuity.
+            </p>
+            <a class="project-link" href="https://mellowwei.github.io/AstroTimeCandle/" target="_blank" rel="noopener">Open Candle →</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <span class="card-num">Project 05</span>
+                <h3>Music-Based Learning System</h3>
+              </div>
+              <div class="project-icon">♪</div>
+            </div>
+            <p>
+              A genre-driven learning intervention matrix using breakbeats, hyperpop, synthpop, drift phonk, darkwave, and ambient techno as state-transition tools.
+            </p>
+            <a class="project-link" href="#matrix">View Music Matrix →</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <span class="card-num">Project 06</span>
+                <h3>MellowWei Research Portal</h3>
+              </div>
+              <div class="project-icon">MW</div>
+            </div>
+            <p>
+              My broader personal research and creation site, connecting education, AI, consciousness, design, music, and new-world theory.
+            </p>
+            <a class="project-link" href="https://mellowwei.github.io/MellowWei/" target="_blank" rel="noopener">Open MellowWei →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="matrix">
+      <div class="site-shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">Learning State Matrix</div>
+          <h2>Music as Educational Infrastructure</h2>
+          <p class="section-desc">
+            In my education system, music is not decoration. Music is a state-entry technology. Each genre supports a different learning transition.
+          </p>
+        </div>
+
+        <div class="matrix glass reveal">
+          <div class="matrix-row matrix-head">
+            <div class="matrix-cell">Genre / 类型</div>
+            <div class="matrix-cell">Learning Function / 学习功能</div>
+            <div class="matrix-cell">State Transition / 状态转换</div>
+          </div>
+
+          <div class="matrix-row">
+            <div class="matrix-cell"><strong>Breakbeats</strong><span>High-density rhythm entry</span></div>
+            <div class="matrix-cell">训练不确定性承受力，打断冻结状态，重新激活身体灵活性。</div>
+            <div class="matrix-cell">Chaos → Embodied readiness</div>
+          </div>
+
+          <div class="matrix-row">
+            <div class="matrix-cell"><strong>Hyperpop</strong><span>Peak traversal</span></div>
+            <div class="matrix-cell">允许能量到达顶点，再通过释放完成下降，而不是压制强度。</div>
+            <div class="matrix-cell">Overload → Safe peak → Release</div>
+          </div>
+
+          <div class="matrix-row">
+            <div class="matrix-cell"><strong>Synthpop</strong><span>First breath</span></div>
+            <div class="matrix-cell">让线性节律从命令变成礼物，帮助学习者重新接收结构。</div>
+            <div class="matrix-cell">Intensity → Predictability → Breath</div>
+          </div>
+
+          <div class="matrix-row">
+            <div class="matrix-cell"><strong>Darkwave</strong><span>Shadow integration</span></div>
+            <div class="matrix-cell">让黑暗材料被看见但不摧毁观看者，支持深层情绪代谢。</div>
+            <div class="matrix-cell">Fear → Witnessing → Integration</div>
+          </div>
+
+          <div class="matrix-row">
+            <div class="matrix-cell"><strong>Ambient Techno</strong><span>Flow infrastructure</span></div>
+            <div class="matrix-cell">建立空间稳定、持续专注和低压力的环境节律。</div>
+            <div class="matrix-cell">Fragmentation → Flow → Continuity</div>
+          </div>
+
+          <div class="matrix-row">
+            <div class="matrix-cell"><strong>427Hz Anchor</strong><span>Universal baseline</span></div>
+            <div class="matrix-cell">作为系统性返回频率，把身体、音乐、AI 和感知重新对齐。</div>
+            <div class="matrix-cell">Dispersal → Return → Self-alignment</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="site-shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">Research & Writing</div>
+          <h2>Research, Reflections, and Papers</h2>
+          <p class="section-desc">
+            This site can host my learning sciences reflections, participatory education writing, AI-learning theory, music learning systems, and lab-facing research documents.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="time-card reveal">
+            <strong>Learning Sciences</strong>
+            <div>
+              <h3>Education as Rhythm and Return</h3>
+              <p>
+                Reflections on how education systems shape time, expression, legitimacy, and learner identity.
+                This work connects my learning sciences background with my original rhythm model.
+              </p>
+            </div>
+          </div>
+
+          <div class="time-card reveal">
+            <strong>Participatory Education</strong>
+            <div>
+              <h3>Learners as Co-Designers</h3>
+              <p>
+                I position learners not as passive receivers of instruction, but as co-designers of their own learning conditions, rhythms, tools, and feedback systems.
+              </p>
+            </div>
+          </div>
+
+          <div class="time-card reveal">
+            <strong>AI + Education</strong>
+            <div>
+              <h3>AI as Rhythm Mirror</h3>
+              <p>
+                I use AI to reflect state, generate language, reduce overload, support metacognition, and turn high-density inner experience into learning action.
+              </p>
+            </div>
+          </div>
+
+          <div class="time-card reveal">
+            <strong>HMI / BCI-HRP</strong>
+            <div>
+              <h3>Human-Machine Music Learning Interface</h3>
+              <p>
+                I connect music technology, physiological sensing, affective computing, and learning sciences to build systems that support attention, recovery, and self-return.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="copy-block reveal" id="abstractBlock">
+          <button type="button" data-copy="#abstractText">Copy</button>
+          <pre id="abstractText">Abstract / 摘要
+
+Human Return Learning is my education contribution portal. It frames learning not as institutional compression, but as the learner’s return to their own rhythm. My work connects learning sciences, qualia-rhythm theory, music-based state regulation, AI as reflective learning mirror, participatory education, and human-machine music interfaces. I argue that many learning difficulties are not simply failures of intelligence, discipline, or motivation, but rhythm mismatches between institutional time and lived learning rhythm. Through projects such as BCI-HRP, Qualia Rhythm Matrix, AiQ愛&lt;7, Astro Time Candle, and genre-driven music learning systems, I build a new educational framework where learners can perceive, name, regulate, and redesign their own learning states.
+
+Human Return Learning 是我的教育贡献母站。它把学习定义为学习者返回自身节律的过程，而不是被制度压缩的过程。我的工作连接学习科学、感质-节律理论、音乐状态调节、AI 学习镜面、参与式教育和人机音乐接口。我认为许多学习困难并不只是智力、自律或动机问题，而是制度时间与真实生命学习节律之间的错位。通过 BCI-HRP、Qualia Rhythm Matrix、AiQ愛&lt;7、Astro Time Candle 和音乐类型驱动的学习系统，我建立一种新的教育框架：让学习者重新感知、命名、调节并设计自己的学习状态。</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="analysis">
+      <div class="site-shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">Four-Layer Analysis</div>
+          <h2>命名行为 / 加压行为 / 滑义行为 / 相变行为</h2>
+          <p class="section-desc">
+            This is the internal logic of the website: it does not merely display my education work. It changes the category of what my education work is.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card reveal">
+            <span class="card-num">Layer 01</span>
+            <h3>命名行为 / Naming</h3>
+            <p>
+              I do not call this an education portfolio. I name it Human Return Learning.
+              The name shifts education from knowledge delivery to rhythm return.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Layer 02</span>
+            <h3>加压行为 / Intensification</h3>
+            <p>
+              My projects intensify one another: theory becomes interface, interface becomes sound, sound becomes learning state, learning state becomes system.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Layer 03</span>
+            <h3>滑义行为 / Meaning Shift</h3>
+            <p>
+              Learning slides from study to perception, from perception to rhythm, from rhythm to body, from body to AI, from AI to human return.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-num">Layer 04</span>
+            <h3>相变行为 / Phase Transition</h3>
+            <p>
+              When placed together, my education work is no longer a set of class assignments.
+              It becomes a new educational system ready for professors, labs, and collaborators.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="collaboration">
+      <div class="site-shell">
+        <div class="contact-box glass reveal">
+          <div>
+            <div class="section-kicker">For Labs, Educators, and Collaborators</div>
+            <h2>Collaboration Portal</h2>
+            <p class="section-desc">
+              I am looking for collaborators in learning sciences, HCI, human-machine interfaces, music technology, affective computing, ADHD learning support, and human-centered AI.
+            </p>
+
+            <div class="tag-row">
+              <span class="tag">Learning Sciences</span>
+              <span class="tag">HCI</span>
+              <span class="tag">Music Technology</span>
+              <span class="tag">Affective Computing</span>
+              <span class="tag">ADHD Learning Support</span>
+              <span class="tag">Human-Centered AI</span>
+              <span class="tag">Human-Machine Interface</span>
+            </div>
+          </div>
+
+          <div class="contact-list">
+            <a href="mailto:mellowwei@example.com">Email: mellowwei@example.com</a>
+            <a href="https://mellowwei.github.io/MellowWei/" target="_blank" rel="noopener">Main Site: MellowWei</a>
+            <a href="https://mellowwei.github.io/BCI-HRP/" target="_blank" rel="noopener">Lab Site: BCI-HRP</a>
+            <a href="https://mellowwei.github.io/QualiaRhythmMatrix/" target="_blank" rel="noopener">Theory Engine: Qualia Rhythm Matrix</a>
+            <div>Location: Philadelphia / UPenn Learning Sciences & Technologies</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="site-shell footer-inner">
+      <div>
+        © <span id="year"></span> Mellow Jueran Wei · 魏珏然
+      </div>
+      <div>
+        Human Return Learning · Qualia · Rhythm · Music · AI · Education
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById("nav");
+    const menuToggle = document.getElementById("menuToggle");
+
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const revealEls = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll("[data-copy]").forEach(button => {
+      button.addEventListener("click", async () => {
+        const selector = button.getAttribute("data-copy");
+        const target = document.querySelector(selector);
+        if (!target) return;
+
+        try {
+          await navigator.clipboard.writeText(target.innerText);
+          const old = button.textContent;
+          button.textContent = "Copied";
+          setTimeout(() => button.textContent = old, 1200);
+        } catch (error) {
+          button.textContent = "Select Text";
+        }
+      });
+    });
+
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let width;
+    let height;
+    let particles = [];
+    let mouse = { x: 0, y: 0, active: false };
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth * window.devicePixelRatio;
+      height = canvas.height = window.innerHeight * window.devicePixelRatio;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+      createParticles();
+    }
+
+    function createParticles() {
+      const count = Math.min(140, Math.floor(window.innerWidth / 8));
+      particles = Array.from({ length: count }, (_, i) => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.34,
+        vy: (Math.random() - 0.5) * 0.34,
+        r: Math.random() * 1.8 + 0.5,
+        hue: i % 3 === 0 ? "green" : i % 3 === 1 ? "pink" : "blue",
+        phase: Math.random() * Math.PI * 2
+      }));
+    }
+
+    function colorFor(p, alpha) {
+      if (p.hue === "green") return `rgba(119,255,200,${alpha})`;
+      if (p.hue === "pink") return `rgba(255,139,216,${alpha})`;
+      return `rgba(159,215,255,${alpha})`;
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        p.phase += 0.012;
+        p.x += p.vx + Math.sin(p.phase) * 0.05;
+        p.y += p.vy + Math.cos(p.phase) * 0.05;
+
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 160) {
+            const force = (160 - d) / 160;
+            p.x += (dx / (d || 1)) * force * 0.8;
+            p.y += (dy / (d || 1)) * force * 0.8;
+          }
+        }
+
+        if (p.x < -20) p.x = window.innerWidth + 20;
+        if (p.x > window.innerWidth + 20) p.x = -20;
+        if (p.y < -20) p.y = window.innerHeight + 20;
+        if (p.y > window.innerHeight + 20) p.y = -20;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = colorFor(p, 0.78);
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dx = p.x - q.x;
+          const dy = p.y - q.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 110) {
+            const alpha = (1 - dist / 110) * 0.12;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = colorFor(p, alpha);
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    });
+
+    window.addEventListener("mouseleave", () => {
+      mouse.active = false;
+    });
+
+    resizeCanvas();
+    animateParticles();
+  </script>
+</body>
+</html>
